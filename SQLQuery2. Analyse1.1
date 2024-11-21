@@ -1,0 +1,75 @@
+Select *
+from environmental_data_large
+
+SELECT  AVG("Air_Quality_Index_AQI") AS AQI
+FROM environmental_data_large
+
+ SELECT  AVG("Temperature_C") AS Temperature
+FROM environmental_data_large
+
+SELECT  AVG("CO2_Emissions_ppm") AS CO2 
+FROM environmental_data_large
+
+SELECT 
+    YEAR([date] ) AS year,
+    MONTH([date]) AS month,
+    AVG([CO2_Emissions_ppm] ) AS CO2
+FROM environmental_data_large
+GROUP BY YEAR([date]), MONTH([date])
+ORDER BY year desc , month desc;
+
+SELECT Month([date]) AS Month ,
+       AVG([Precipitation_mm]) AS Pm
+FROM environmental_data_large
+GROUP by Month([date])
+ORDER BY month desc
+
+
+SELECT  year([date])  AS year,
+        Temperature_C
+FROM environmental_data_large
+order by year desc
+
+
+
+Select 
+      Year([date])  AS year ,
+	  Month([date]) AS month ,
+      Solar_Radiation_W_m2 ,
+	  Air_Quality_Index_AQI
+
+FROM environmental_data_large
+Order by year desc , month desc;
+--GO
+--Create view Average as
+--Select Month([date]) As month,
+--AVG("Temperature_C") AS temperature ,
+--AVG("Wind_Speed_km_h") AS wind , 
+--AVG("CO2_Emissions_ppm") as C02 , 
+--AVG("Air_Quality_Index_AQI") As AQI , 
+--AVG("Humidity") AS humidity , 
+--AVG("Precipitation_mm") AS precipitation , 
+--AVG("Solar_Radiation_W_m2") AS SolarR 
+ 
+--FROM environmental_data_large 
+--WHERE Wind_Speed_km_h>59 and Temperature_C<10 and CO2_Emissions_ppm>300
+--GROUP BY month([date])
+
+
+
+GO
+CREATE VIEW Averageee AS
+SELECT 
+    MONTH([date]) AS month,
+    AVG("Temperature_C") AS temperature, 
+    AVG("Wind_Speed_km_h") AS wind, 
+    AVG("CO2_Emissions_ppm") AS CO2, 
+    AVG("Air_Quality_Index_AQI" ) AS AQI, 
+    AVG("Humidity") AS humidity, 
+    AVG("Precipitation_mm") AS precipitation, 
+    AVG("Solar_Radiation_W_m2") AS SolarR 
+FROM environmental_data_large 
+WHERE "Wind_Speed_km_h" > 59 
+  AND "Temperature_C" < 10 
+  AND "CO2_Emissions_ppm" > 300
+GROUP BY MONTH([date]);
